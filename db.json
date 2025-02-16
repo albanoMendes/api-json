@@ -1,0 +1,112 @@
+{
+  "downloads": [
+    {
+      "id": 1,
+      "empresa": "Foryou",
+      "insta": "foryouFS",
+      "cell": "+244924889434",
+      "aplicativo": "Aplicação Desktop para Gestão de Lojas",
+      "city": "Benfica",
+      "state": "Luanda",
+      "data_create": "12/02/2025 14:30:15"
+    },
+    {
+      "id": 2,
+      "empresa": "Foryou",
+      "insta": "foryouFS",
+      "cell": "+244924889434",
+      "aplicativo": "Aplicação Desktop para Gestão de Lojas",
+      "city": "Lubito",
+      "state": "Benguela",
+      "data_create": "12/02/2025 14:30:15"
+    }
+  ],
+  "aplicativos": [
+    {
+      "id": 1,
+      "titulo": "Aplicação Desktop para Gestão de Lojas",
+      "link": "pFOG8c_aifo",
+      "descricao": "<h4>Ideal para pequenas e médias empresas</h4><p>A solução completa para otimizar a administração de lojas, oferecendo ferramentas essenciais para controle de vendas, gestão de clientes, fluxo de caixa e muito mais.</p><h3><strong> Recursos Extras:</strong></h3><p>Geração de relatórios em <strong> Excel </strong> para: </p><p>Vendas, Dívidas, Despesas mensais, Clientes e Fluxo de caixa mensal.</p>",
+      "data_create": "12/02/2025 14:30:15"
+    },
+    {
+      "id": 2,
+      "titulo": "Aplicação Desktop para Gestão de Farmácia",
+      "link": "fXbKgZjKXfk?si=nw0sVBrb9mt4hFiB",
+      "descricao": "<h4>Ideal para pequenas e médias farmácia</h4> <p>Nossa solução foi desenvolvida para otimizar a administração de farmácias, oferecendo dois painéis administrativos distintos: um para o Farmacêutico (Atendente) e outro para o Gerente. Cada painel é projetado para facilitar a gestão e garantir eficiência no atendimento e no controle operacional.</p> <h3><strong> Relatórios e Análises:</strong></h3> <p><strong> 🔹 Geração automática de relatórios em Excel: </strong> sobre produtos, vendas, dívidas, clientes, pagamentos e fluxo financeiro mensal.  </p> <p><strong> 🔹 Gráficos detalhados de vendas </strong>  para análise de desempenho e tomadas de decisão estratégicas.  </p><p><strong> 🔹  Impressão de faturas </strong> diretamente pela aplicação, agilizando os processos de atendimento.  </p>",
+      "data_create": "12/02/2025 14:30:15"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "Pedro Mzongi",
+      "email": "pedromzongi@gmail.com",
+      "tipo": "SOCIALMIDIAS",
+      "ps": "1143%TTT",
+      "desabled": true
+    },
+    {
+      "id": 2,
+      "username": "Panzo Miranda",
+      "email": "panzomiranda@gmail.com",
+      "tipo": "SELLER",
+      "ps": "2433t**12",
+      "desabled": true
+    },
+    {
+      "id": 3,
+      "username": "Mzongi Pedro",
+      "email": "mzongipedro@gmail.com",
+      "tipo": "ADM",
+      "ps": "1243%t=12",
+      "desabled": true
+    },
+    {
+      "id": 4,
+      "username": "Baldo Miro",
+      "email": "baldomiro@gmail.com",
+      "tipo": "RH",
+      "ps": "2993==12",
+      "desabled": false
+    }
+  ],
+  "publicidadesdb": [
+    {
+      "id": 1,
+      "title": "WEB SITE",
+      "subtitle": "PROMOÇÃO, COMEÇA 2025 GANHANDO MAIS...",
+      "tipo": "SERVICO",
+      "descricao": "<h3>Site personalizado com benefícios únicos!</h2><p> Hospedagem e domínio <strong>GRÁTIS</strong> no primeiro ano.</p><p> 6 meses de assistência técnica e consultoria em Marketing Digital.</p><p><strong> Apenas 400 mil kz, pagamento em 4 parcelas suaves,</strong> e a última só é paga quando seu site estiver pronto e funcionando! </p><h5>Invista hoje e faça seu negócio crescer online!</h5>",
+      "filename": "88bbc8a7-abc7-4b23-b706-991def900521.jpg",
+      "more": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
+    },
+    {
+      "id": 2,
+      "title": "MARKETING DIGITAL",
+      "subtitle": "Cuidamos Da Sua Presença Digital",
+      "tipo": "SERVICO",
+      "descricao": "Transforme engajamento em vendas! Otimize suas redes sociais com mais interações e anúncios online eficientes que convertem. Quer crescer de verdade?",
+      "image": "95b91ce2-9467-40e6-8709-d328a665bf43.jpg",
+      "more": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
+    },
+    {
+      "id": 3,
+      "title": "APLICAÇÃO WEB",
+      "subtitle": "Construímos Aplicações Web ",
+      "tipo": "SERVICO",
+      "descricao": "Mais controle, mais crescimento! Nossas aplicações web permitem que você tenha uma visão clara e em tempo real das suas operações. Vamos elevar a sua gestão ao próximo nível?",
+      "filename": "6bcaeb00-156a-4ea4-9fc8-8799554c3374.jpg",
+      "more": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
+    },
+    {
+      "id": 4,
+      "title": "APLICAÇÃO DESKTOP",
+      "subtitle": "Construímos Aplicações DESKTOP",
+      "tipo": "SERVICO",
+      "descricao": "Transforme a eficiência do seu negócio! Desenvolvemos aplicações desktop poderosas para simplificar e automatizar suas operações. Quer saber como podemos ajudar? ",
+      "filename": "6bcaeb00-156a-4ea4-9fc8-8799554c3374.jpg",
+      "more": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
+    }
+  ]
+}
