@@ -1,4 +1,7 @@
 const jsonServer = require("json-server");
+
+console.log("Iniciando JSON Server...");
+
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
@@ -10,8 +13,8 @@ const PORT = process.env.PORT || 3000;
 
 server
   .listen(PORT, () => {
-    console.log(`JSON Server está rodando na porta ${PORT}`);
+    console.log(`✅ JSON Server está rodando na porta ${PORT}`);
   })
   .on("error", (err) => {
-    console.error("Erro ao iniciar o servidor:", err);
+    console.error("❌ Erro ao iniciar o servidor:", err);
   });
