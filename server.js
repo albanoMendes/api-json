@@ -1,13 +1,18 @@
 const jsonServer = require("json-server");
 const multer = require("multer");
 const fs = require("fs");
+const express = require("express");
+const path = require("path");
 
 console.log("Iniciando JSON Server...");
 
-const server = jsonServer.create();
+const server = express();
+
+//const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
 
+server.use(express.static(path.join(__dirname, "public")));
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
