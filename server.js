@@ -134,9 +134,9 @@ server.use((err, req, res, next) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
-server
-  .listen(PORT, () => console.log(`✅ JSON Server rodando na porta ${PORT}`))
-  .on("error", (err) => console.error("❌ Erro ao iniciar o servidor:", err));
+//const PORT = process.env.PORT || 3000;
+//server
+//  .listen(PORT, () => console.log(`✅ JSON Server rodando na porta ${PORT}`))
+//  .on("error", (err) => console.error("❌ Erro ao iniciar o servidor:", err));
 
 module.exports = server;
