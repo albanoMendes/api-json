@@ -12,29 +12,43 @@
     },
     {
       "id": 2,
-      "empresa": "Foryou",
-      "insta": "foryouFS",
-      "cell": "+244924889434",
+      "empresa": "Pratu",
+      "insta": "Pratu",
+      "cell": "926382332",
       "aplicativo": "Aplicação Desktop para Gestão de Lojas",
-      "city": "Lubito",
-      "state": "Benguela",
-      "data_create": "12/02/2025 14:30:15"
+      "city": "Florianópolis",
+      "state": "Santa Catarina",
+      "data_create": "09/03/2025, 13:27:03"
     }
   ],
   "aplicativos": [
     {
       "id": 1,
+      "work": "APP Desktop",
+      "name": "GESTÃO DE LOJAS",
+      "filename": "697f450c-e2a6-4701-920c-6051a9a604c6.jpg",
+      "tipo": "PRODUTO",
+      "conteudo": "Facilite a gestão do seu negócio! Com nossa aplicação, você pode cadastrar vendas, controlar dívidas, gerar faturas, registrar folhas de pagamento e acompanhar o fluxo de caixa de forma prática e eficiente.",
+      "more": "/AppDesktops",
       "titulo": "Aplicação Desktop para Gestão de Lojas",
-      "link": "pFOG8c_aifo",
-      "descricao": "<h4>Ideal para pequenas e médias empresas</h4><p>A solução completa para otimizar a administração de lojas, oferecendo ferramentas essenciais para controle de vendas, gestão de clientes, fluxo de caixa e muito mais.</p><h3><strong> Recursos Extras:</strong></h3><p>Geração de relatórios em <strong> Excel </strong> para: </p><p>Vendas, Dívidas, Despesas mensais, Clientes e Fluxo de caixa mensal.</p>",
-      "data_create": "12/02/2025 14:30:15"
+      "resumo": "<h4>💡 Quer mais organização e controle no seu negócio?</h4><p>Com nossa aplicação de gestão de lojas, você monitora vendas, fluxo de caixa, estoque e muito mais! 📊</p><h3><strong> Recursos Extras:</strong></h3><p>Geração de relatórios em <strong> Excel </strong> para: </p><p>Vendas,Dívidas,Despesas mensais,Clientes e Fluxo de caixa mensal.</p>",
+      "link": "6QYkhHp1A6c?si=6zxOXVGJ-HeLkq36",
+      "arquivo": "APP-Loja-ebook-exp.pdf",
+      "whats": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
     },
     {
       "id": 2,
-      "titulo": "Aplicação Desktop para Gestão de Farmácia",
-      "link": "fXbKgZjKXfk?si=nw0sVBrb9mt4hFiB",
-      "descricao": "<h4>Ideal para pequenas e médias farmácia</h4> <p>Nossa solução foi desenvolvida para otimizar a administração de farmácias, oferecendo dois painéis administrativos distintos: um para o Farmacêutico (Atendente) e outro para o Gerente. Cada painel é projetado para facilitar a gestão e garantir eficiência no atendimento e no controle operacional.</p> <h3><strong> Relatórios e Análises:</strong></h3> <p><strong> 🔹 Geração automática de relatórios em Excel: </strong> sobre produtos, vendas, dívidas, clientes, pagamentos e fluxo financeiro mensal.  </p> <p><strong> 🔹 Gráficos detalhados de vendas </strong>  para análise de desempenho e tomadas de decisão estratégicas.  </p><p><strong> 🔹  Impressão de faturas </strong> diretamente pela aplicação, agilizando os processos de atendimento.  </p>",
-      "data_create": "12/02/2025 14:30:15"
+      "work": "APP Desktop",
+      "name": "GESTÃO DE RESTAURANTE",
+      "filename": "d85c5d75-941a-46e7-8847-f75f1476e4bd.jpg",
+      "tipo": "PRODUTO",
+      "conteudo": "Tecnologia a favor da sua gestão! Nossa aplicação foi desenvolvida para otimizar restaurantes, bares e lanchonetes, oferecendo controle completo de pedidos, estoque, pagamentos e relatórios detalhados em Excel. Tudo de forma simples e eficiente!",
+      "more": "/AppDesktops",
+      "titulo": "Aplicação Desktop para Gestão de Restaurantes, Lanchonetes e Bares.",
+      "resumo": "<h4>🚀 Seu restaurante mais organizado e lucrativo! 🚀</h4><p>Gerenciar um restaurante pode ser desafiador, mas com a ferramenta certa tudo fica mais fácil! Nossa aplicação de gestão permite controlar pedidos, vendas, estoque e fluxo de caixa de forma simples e segura.</p><h3><strong> Benefícios da aplicação</strong></h3><p>✅ Mais controle, ✅ Menos desperdício, ✅ Mais lucro para o seu negócio!</p>",
+      "link": "E2iHPR3YSjA?si=Fq2F04B47PGwsV5t",
+      "arquivo": "APP-Resataurant-Ebook.pdf",
+      "whats": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
     }
   ],
   "users": [
@@ -74,7 +88,7 @@
   "publicidadesdb": [
     {
       "id": 1,
-      "title": "WEB SITE",
+      "title": "WEBSITE",
       "subtitle": "PROMOÇÃO, COMEÇA 2025 GANHANDO MAIS...",
       "tipo": "SERVICO",
       "descricao": "<h3>Site personalizado com benefícios únicos!</h2><p> Hospedagem e domínio <strong>GRÁTIS</strong> no primeiro ano.</p><p> 6 meses de assistência técnica e consultoria em Marketing Digital.</p><p><strong> Apenas 400 mil kz, pagamento em 4 parcelas suaves,</strong> e a última só é paga quando seu site estiver pronto e funcionando! </p><h5>Invista hoje e faça seu negócio crescer online!</h5>",
@@ -83,30 +97,62 @@
     },
     {
       "id": 2,
-      "title": "MARKETING DIGITAL",
-      "subtitle": "Cuidamos Da Sua Presença Digital",
+      "title": "APLICAÇÃO DESKTOP",
+      "subtitle": "APLICAÇÃO DESKTOP PARA GESTÃO DE PEQUENOS E MÉDIOS NEGÓCIOS",
       "tipo": "SERVICO",
-      "descricao": "Transforme engajamento em vendas! Otimize suas redes sociais com mais interações e anúncios online eficientes que convertem. Quer crescer de verdade?",
-      "image": "95b91ce2-9467-40e6-8709-d328a665bf43.jpg",
+      "filename": "1741441978796_Gestao-empresarial.jpg",
+      "descricao": "<h3><strong>🚀 Transforme Sua Gestão em Vantagem Competitiva!</strong><h3>\r\n<p><strong>Imagina ter todas as informações do seu negócio na ponta dos dedos?</strong> Com nossa ferramenta de gestão, você organiza tudo de forma prática e eficiente.</p>\r\n<P><strong>🛒 Controle de vendas | 📦 Estoque | 💰 Finanças | 📈 Relatórios</strong></p>\r\n<p><strong>💥 Tenha mais controle, mais lucro e menos estresse!</strong></p>\r\n<h3><strong>📩 Fale conosco e descubra como facilitar sua rotina!</strong></h3>",
       "more": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
+    }
+  ],
+  "message": [
+    {
+      "id": 1,
+      "nome": "josé Andre",
+      "cell": "+244924875999",
+      "email": "josemimi@gmail.com",
+      "assunto": "Website",
+      "conteudo": "Olá gostaria de saber como funciona esse serviço, e o que posso fazer para aderir o trabalho.",
+      "idUser": "MD",
+      "data_create": "02/03/2025"
+    }
+  ],
+  "anunciosdb": [
+    {
+      "id": 1,
+      "empresa": "Overtime&NL",
+      "servico": "Venda De APP Desktop",
+      "meio": "Meta Ads",
+      "valor": 100,
+      "segment": "Empresarios Lojas",
+      "objetivo": "Criação de Publico",
+      "conversao": "1.800 pessoas",
+      "descricao": "Temos um total de 1.800, juntando os publicos de (75 e 95)v de 15, 30, 45, 60 e 90 dias",
+      "status": true,
+      "dataIn": "2024-01-10"
     },
     {
       "id": 3,
-      "title": "APLICAÇÃO WEB",
-      "subtitle": "Construímos Aplicações Web ",
-      "tipo": "SERVICO",
-      "descricao": "Mais controle, mais crescimento! Nossas aplicações web permitem que você tenha uma visão clara e em tempo real das suas operações. Vamos elevar a sua gestão ao próximo nível?",
-      "filename": "6bcaeb00-156a-4ea4-9fc8-8799554c3374.jpg",
-      "more": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
-    },
+      "empresa": "Pratu",
+      "servico": "Roupas (Nova coleção de Casacos e Camisas)",
+      "meio": "Google Ads",
+      "valor": 1000,
+      "segment": "Pessoas dos 15 as 44 anos",
+      "objetivo": "Vendas de Produtos",
+      "conversao": "Nenhuma no momento",
+      "descricao": "O anuncio foi publicado para centralidades da e principal escolas.",
+      "status": true,
+      "dataIn": "06/03/2025"
+    }
+  ],
+  "testemunho": [
     {
-      "id": 4,
-      "title": "APLICAÇÃO DESKTOP",
-      "subtitle": "Construímos Aplicações DESKTOP",
-      "tipo": "SERVICO",
-      "descricao": "Transforme a eficiência do seu negócio! Desenvolvemos aplicações desktop poderosas para simplificar e automatizar suas operações. Quer saber como podemos ajudar? ",
-      "filename": "6bcaeb00-156a-4ea4-9fc8-8799554c3374.jpg",
-      "more": "https://api.whatsapp.com/message/REGZSZIRC3CGI1?autoload=1&app_absent=0"
+      "id": 1,
+      "work": "APP web e Mobile",
+      "name": "Ombala do Saber",
+      "conteudo": "A equipe da Overtime não só entregou um site incrível, mas também foi excepcionalmente colaborativa durante todo o processo. Obrigado pela parceria",
+      "data_create": "2021-03-25",
+      "more": "saber mais"
     }
   ]
 }
