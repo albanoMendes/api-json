@@ -3,6 +3,7 @@ const multer = require("multer");
 const fs = require("fs");
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 
 console.log("Iniciando JSON Server...");
 
@@ -12,6 +13,8 @@ const server = express();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
 
+server.use(cors());
+server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
