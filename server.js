@@ -10,8 +10,8 @@ console.log("Iniciando JSON Server...");
 const server = express();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
-
-server.use(cors());
+server.use(cors({ origin: "*" }));
+//server.use(cors());
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
 server.use(middlewares);
