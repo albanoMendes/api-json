@@ -5,13 +5,15 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 
-console.log("Iniciando JSON Server...");
+console.log("✅ Iniciando JSON Server...");
 
 const server = express();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
-server.use(cors({ origin: "*" }));
-//server.use(cors());
+
+// Corrigido CORS para aceitar qualquer origem
+server.use(cors({ origin: "*", methods: ["GET", "POST", "PATCH", "DELETE"] }));
+
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
 server.use(middlewares);
@@ -62,10 +64,11 @@ const createResource = (req, res, resourceName) => {
     const newResource = { id: generateId(collection), ...req.body };
 
     collection.push(newResource).write();
-    //console.log(`✅ Novo recurso criado em '${resourceName}':`, newResource);
-    return res.status(201).json(newResource);
+    console.log(`✅ Novo recurso criado em '${resourceName}':`, newResource);
+
+    return res.status(201).json({ success: true, data: newResource });
   } catch (error) {
-    //console.error(`❌ Erro ao criar '${resourceName}':`, error);
+    console.error(`❌ Erro ao criar '${resourceName}':`, error);
     return res.status(500).json({ error: "Erro interno ao criar recurso" });
   }
 };
@@ -88,11 +91,11 @@ const updateResource = (req, res, resourceName) => {
       .find({ id: Number(id) })
       .assign(updates)
       .write();
-    console.log(`✅ Recurso atualizado em '${resourceName}':`, {
-      ...resource,
-      ...updates,
-    });
-    return res.json({ ...resource, ...updates });
+    const updatedResource = { ...resource, ...updates };
+
+    console.log(`✅ Recurso atualizado em '${resourceName}':`, updatedResource);
+
+    return res.json({ success: true, data: updatedResource });
   } catch (error) {
     console.error(`❌ Erro ao atualizar '${resourceName}':`, error);
     return res.status(500).json({ error: "Erro interno ao atualizar recurso" });
@@ -107,11 +110,10 @@ const deleteResource = (req, res, resourceName, fileFields = []) => {
     const resource = collection.find({ id: Number(id) }).value();
 
     if (!resource) {
-      return res
-        .status(404)
-        .json({ message: `${resourceName} não encontrado` });
+      return res.status(404).json({ error: `${resourceName} não encontrado` });
     }
 
+    // Excluir arquivos associados
     fileFields.forEach((field) => {
       if (resource[field]) {
         const filePath = `public/arquivos/${resource[field]}`;
@@ -123,10 +125,14 @@ const deleteResource = (req, res, resourceName, fileFields = []) => {
     });
 
     collection.remove({ id: Number(id) }).write();
-    //console.log(`✅ Recurso removido de '${resourceName}':`, resource);
-    return res.json({ message: `${resourceName} removido com sucesso` });
+    console.log(`✅ Recurso removido de '${resourceName}':`, resource);
+
+    return res.json({
+      success: true,
+      message: `${resourceName} removido com sucesso`,
+    });
   } catch (error) {
-    //console.error(`❌ Erro ao excluir '${resourceName}':`, error);
+    console.error(`❌ Erro ao excluir '${resourceName}':`, error);
     return res.status(500).json({ error: "Erro interno ao excluir recurso" });
   }
 };
@@ -166,7 +172,9 @@ server.use(router);
 server.use((err, req, res, next) => {
   console.error("❌ Erro no servidor:", err);
   if (!res.headersSent) {
-    return res.status(500).json({ error: "Erro interno do servidor" });
+    return res
+      .status(500)
+      .json({ error: "Erro interno do servidor", details: err.message });
   }
 });
 
