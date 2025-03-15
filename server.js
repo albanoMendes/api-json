@@ -7,9 +7,9 @@ const cors = require("cors");
 
 console.log("Iniciando JSON Server...");
 
-const server = express();
+//const server = express();
 
-//const server = jsonServer.create();
+const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
 
