@@ -115,6 +115,32 @@
       "conteudo": "Olá gostaria de saber como funciona esse serviço, e o que posso fazer para aderir o trabalho.",
       "idUser": "MD",
       "data_create": "02/03/2025"
+    },
+    {
+      "id": 2,
+      "nome": "Mpanzo A Miranda",
+      "email": "panzomiranda@gmail.com",
+      "assunto": "Marketing Digital",
+      "conteudo": "Olá, me chamo Miranda gostaria de saber como funciona o vosso serviço de Website e Marketing Digital",
+      "idUser": "MD"
+    },
+    {
+      "id": 1,
+      "nome": "josé Andre",
+      "cell": "+244924875999",
+      "email": "josemimi@gmail.com",
+      "assunto": "Website",
+      "conteudo": "Olá gostaria de saber como funciona esse serviço, e o que posso fazer para aderir o trabalho.",
+      "idUser": "MD"
+    },
+    {
+      "id": 1,
+      "nome": "josé Andre",
+      "cell": "+244924875999",
+      "email": "josemimi@gmail.com",
+      "assunto": "Website",
+      "conteudo": "Olá gostaria de saber como funciona esse serviço, e o que posso fazer para aderir o trabalho.",
+      "idUser": "MD"
     }
   ],
   "anunciosdb": [

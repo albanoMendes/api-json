@@ -64,11 +64,11 @@ const createResource = (req, res, resourceName) => {
     const newResource = { id: generateId(collection), ...req.body };
 
     collection.push(newResource).write();
-    console.log(`✅ Novo recurso criado em '${resourceName}':`, newResource);
+    //console.log(`✅ Novo recurso criado em '${resourceName}':`, newResource);
 
     return res.status(201).json({ success: true, data: newResource });
   } catch (error) {
-    console.error(`❌ Erro ao criar '${resourceName}':`, error);
+    //console.error(`❌ Erro ao criar '${resourceName}':`, error);
     return res.status(500).json({ error: "Erro interno ao criar recurso" });
   }
 };
@@ -93,11 +93,11 @@ const updateResource = (req, res, resourceName) => {
       .write();
     const updatedResource = { ...resource, ...updates };
 
-    console.log(`✅ Recurso atualizado em '${resourceName}':`, updatedResource);
+    //console.log(`✅ Recurso atualizado em '${resourceName}':`, updatedResource);
 
     return res.json({ success: true, data: updatedResource });
   } catch (error) {
-    console.error(`❌ Erro ao atualizar '${resourceName}':`, error);
+    //console.error(`❌ Erro ao atualizar '${resourceName}':`, error);
     return res.status(500).json({ error: "Erro interno ao atualizar recurso" });
   }
 };
