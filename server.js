@@ -11,69 +11,69 @@ const server = express();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
 
-// Corrigido CORS para aceitar qualquer origem
+// 🔹 Configuração do CORS
 server.use(cors({ origin: "*", methods: ["GET", "POST", "PATCH", "DELETE"] }));
 
 server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
 server.use(express.static(path.join(__dirname, "public")));
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-// Verificar se `db.json` existe antes de iniciar o servidor
+// 🔹 Verificar se `db.json` existe antes de iniciar o servidor
 if (!fs.existsSync("db.json")) {
   console.error("❌ ERRO: O arquivo 'db.json' não foi encontrado.");
   process.exit(1);
 }
 
-// Configuração do upload de arquivos
+// 🔹 Configuração do upload de arquivos com `multer`
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadPath = "public/arquivos";
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
-    cb(null, uploadPath);
+  destination: function (req, file, cb) {
+    cb(null, "public/arquivos"); // Define o diretório de upload
   },
-  filename: (req, file, cb) => {
+  filename: function (req, file, cb) {
     const filename = `${Date.now()}_${file.originalname}`;
-    req.body.filename = filename;
     cb(null, filename);
   },
 });
 
-const upload = multer({ storage }).any();
-server.use(upload);
+const upload = multer({ storage: storage });
 
-// Geração de IDs automáticos
+// 🔹 Geração de IDs automáticos
 const generateId = (collection) => {
   const items = collection.value();
   return items.length > 0 ? Math.max(...items.map((item) => item.id)) + 1 : 1;
 };
 
-// Criar recurso
+// 🔹 Criar recurso com suporte a arquivos
 const createResource = (req, res, resourceName) => {
   try {
     const collection = router.db.get(resourceName);
-
     if (!collection) {
       return res
         .status(400)
         .json({ error: `Recurso '${resourceName}' não encontrado.` });
     }
 
-    const newResource = { id: generateId(collection), ...req.body };
+    // Obtém os campos do formulário
+    const newResource = {
+      id: generateId(collection),
+      ...req.body,
+      arquivo: req.files["arquivo"] ? req.files["arquivo"][0].filename : null,
+      filename: req.files["filename"]
+        ? req.files["filename"][0].filename
+        : null,
+    };
 
     collection.push(newResource).write();
-    //console.log(`✅ Novo recurso criado em '${resourceName}':`, newResource);
 
     return res.status(201).json({ success: true, data: newResource });
   } catch (error) {
-    //console.error(`❌ Erro ao criar '${resourceName}':`, error);
     return res.status(500).json({ error: "Erro interno ao criar recurso" });
   }
 };
 
-// Atualizar recurso
+// 🔹 Atualizar recurso
 const updateResource = (req, res, resourceName) => {
   try {
     const { id } = req.params;
@@ -93,16 +93,13 @@ const updateResource = (req, res, resourceName) => {
       .write();
     const updatedResource = { ...resource, ...updates };
 
-    //console.log(`✅ Recurso atualizado em '${resourceName}':`, updatedResource);
-
     return res.json({ success: true, data: updatedResource });
   } catch (error) {
-    //console.error(`❌ Erro ao atualizar '${resourceName}':`, error);
     return res.status(500).json({ error: "Erro interno ao atualizar recurso" });
   }
 };
 
-// Excluir recurso
+// 🔹 Excluir recurso com suporte a arquivos
 const deleteResource = (req, res, resourceName, fileFields = []) => {
   try {
     const { id } = req.params;
@@ -113,10 +110,14 @@ const deleteResource = (req, res, resourceName, fileFields = []) => {
       return res.status(404).json({ error: `${resourceName} não encontrado` });
     }
 
-    // Excluir arquivos associados
+    // 🔹 Excluir arquivos associados
     fileFields.forEach((field) => {
       if (resource[field]) {
-        const filePath = `public/arquivos/${resource[field]}`;
+        const filePath = path.join(
+          __dirname,
+          "public/arquivos",
+          resource[field]
+        );
         fs.unlink(filePath, (err) => {
           if (err)
             console.error(`⚠️ Erro ao excluir arquivo ${filePath}:`, err);
@@ -125,19 +126,16 @@ const deleteResource = (req, res, resourceName, fileFields = []) => {
     });
 
     collection.remove({ id: Number(id) }).write();
-    console.log(`✅ Recurso removido de '${resourceName}':`, resource);
-
     return res.json({
       success: true,
       message: `${resourceName} removido com sucesso`,
     });
   } catch (error) {
-    console.error(`❌ Erro ao excluir '${resourceName}':`, error);
     return res.status(500).json({ error: "Erro interno ao excluir recurso" });
   }
 };
 
-// Definição das rotas
+// 🔹 Definição das rotas
 const resources = [
   "users",
   "message",
@@ -149,7 +147,11 @@ const resources = [
 ];
 
 resources.forEach((resource) => {
-  server.post(`/${resource}`, (req, res) => createResource(req, res, resource));
+  server.post(
+    `/${resource}`,
+    upload.fields([{ name: "arquivo" }, { name: "filename" }]),
+    (req, res) => createResource(req, res, resource)
+  );
   server.patch(`/${resource}/:id`, (req, res) =>
     updateResource(req, res, resource)
   );
@@ -158,7 +160,7 @@ resources.forEach((resource) => {
   );
 });
 
-// Rotas com exclusão de arquivos
+// 🔹 Rotas com exclusão de arquivos
 server.delete("/publicidadesdb/:id", (req, res) =>
   deleteResource(req, res, "publicidadesdb", ["filename"])
 );
@@ -168,7 +170,7 @@ server.delete("/aplicativos/:id", (req, res) =>
 
 server.use(router);
 
-// Middleware para capturar erros globais
+// 🔹 Middleware para capturar erros globais
 server.use((err, req, res, next) => {
   console.error("❌ Erro no servidor:", err);
   if (!res.headersSent) {
@@ -178,7 +180,7 @@ server.use((err, req, res, next) => {
   }
 });
 
-// Iniciar servidor
+// 🔹 Iniciar servidor
 const PORT = process.env.PORT || 3000;
 server
   .listen(PORT, () => console.log(`🚀 JSON Server rodando na porta ${PORT}`))
