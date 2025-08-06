@@ -1,189 +1,170 @@
-const jsonServer = require("json-server");
+const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
-const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const { createClient } = require("@supabase/supabase-js");
+require("dotenv").config();
 
-console.log("✅ Iniciando JSON Server...");
+// 🔹 Configuração do Supabase
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_KEY;
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+console.log("✅ Iniciando servidor...");
 
 const server = express();
-const router = jsonServer.router("db.json");
-const middlewares = jsonServer.defaults();
-
-// 🔹 Configuração do CORS
 server.use(cors({ origin: "*", methods: ["GET", "POST", "PATCH", "DELETE"] }));
-
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(path.join(__dirname, "public")));
-server.use(middlewares);
-server.use(jsonServer.bodyParser);
-
-// 🔹 Verificar se `db.json` existe antes de iniciar o servidor
-if (!fs.existsSync("db.json")) {
-  console.error("❌ ERRO: O arquivo 'db.json' não foi encontrado.");
-  process.exit(1);
-}
 
 // 🔹 Configuração do upload de arquivos com `multer`
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/arquivos"); // Define o diretório de upload
+    cb(null, "public/arquivos");
   },
   filename: function (req, file, cb) {
     const filename = `${Date.now()}_${file.originalname}`;
     cb(null, filename);
   },
 });
-
 const upload = multer({ storage: storage });
 
-// 🔹 Geração de IDs automáticos
-const generateId = (collection) => {
-  const items = collection.value();
-  return items.length > 0 ? Math.max(...items.map((item) => item.id)) + 1 : 1;
-};
+// 🔹 Buscar dados do Supabase (GET)
+server.get("/:table", async (req, res) => {
+  const { table } = req.params;
 
-// 🔹 Criar recurso com suporte a arquivos
-const createResource = (req, res, resourceName) => {
   try {
-    const collection = router.db.get(resourceName);
-    if (!collection) {
+    const { data, error } = await supabase.from(table).select("*");
+
+    if (error)
       return res
         .status(400)
-        .json({ error: `Recurso '${resourceName}' não encontrado.` });
-    }
+        .json({ error: "Erro ao buscar dados", details: error.message });
+    if (!data || data.length === 0)
+      return res.status(404).json({ error: "Nenhum dado encontrado" });
 
-    // Obtém os campos do formulário
-    const newResource = {
-      id: generateId(collection),
-      ...req.body,
-      arquivo: req.files["arquivo"] ? req.files["arquivo"][0].filename : null,
-      filename: req.files["filename"]
-        ? req.files["filename"][0].filename
-        : null,
-    };
-
-    collection.push(newResource).write();
-
-    return res.status(201).json({ success: true, data: newResource });
+    res.json(data);
   } catch (error) {
-    return res.status(500).json({ error: "Erro interno ao criar recurso" });
+    res
+      .status(500)
+      .json({ error: "Erro ao buscar dados", details: error.message });
   }
-};
-
-// 🔹 Atualizar recurso
-const updateResource = (req, res, resourceName) => {
-  try {
-    const { id } = req.params;
-    const updates = req.body;
-    const collection = router.db.get(resourceName);
-    const resource = collection.find({ id: Number(id) }).value();
-
-    if (!resource) {
-      return res
-        .status(404)
-        .json({ message: `${resourceName} não encontrado` });
-    }
-
-    collection
-      .find({ id: Number(id) })
-      .assign(updates)
-      .write();
-    const updatedResource = { ...resource, ...updates };
-
-    return res.json({ success: true, data: updatedResource });
-  } catch (error) {
-    return res.status(500).json({ error: "Erro interno ao atualizar recurso" });
-  }
-};
-
-// 🔹 Excluir recurso com suporte a arquivos
-const deleteResource = (req, res, resourceName, fileFields = []) => {
-  try {
-    const { id } = req.params;
-    const collection = router.db.get(resourceName);
-    const resource = collection.find({ id: Number(id) }).value();
-
-    if (!resource) {
-      return res.status(404).json({ error: `${resourceName} não encontrado` });
-    }
-
-    // 🔹 Excluir arquivos associados
-    fileFields.forEach((field) => {
-      if (resource[field]) {
-        const filePath = path.join(
-          __dirname,
-          "public/arquivos",
-          resource[field]
-        );
-        fs.unlink(filePath, (err) => {
-          if (err)
-            console.error(`⚠️ Erro ao excluir arquivo ${filePath}:`, err);
-        });
-      }
-    });
-
-    collection.remove({ id: Number(id) }).write();
-    return res.json({
-      success: true,
-      message: `${resourceName} removido com sucesso`,
-    });
-  } catch (error) {
-    return res.status(500).json({ error: "Erro interno ao excluir recurso" });
-  }
-};
-
-// 🔹 Definição das rotas
-const resources = [
-  "users",
-  "message",
-  "anunciosdb",
-  "downloads",
-  "testemunho",
-  "publicidadesdb",
-  "aplicativos",
-];
-
-resources.forEach((resource) => {
-  server.post(
-    `/${resource}`,
-    upload.fields([{ name: "arquivo" }, { name: "filename" }]),
-    (req, res) => createResource(req, res, resource)
-  );
-  server.patch(`/${resource}/:id`, (req, res) =>
-    updateResource(req, res, resource)
-  );
-  server.delete(`/${resource}/:id`, (req, res) =>
-    deleteResource(req, res, resource)
-  );
 });
 
-// 🔹 Rotas com exclusão de arquivos
-server.delete("/publicidadesdb/:id", (req, res) =>
-  deleteResource(req, res, "publicidadesdb", ["filename"])
-);
-server.delete("/aplicativos/:id", (req, res) =>
-  deleteResource(req, res, "aplicativos", ["filename", "arquivo"])
+// 🔹 Inserir dados no Supabase (POST)
+server.post(
+  "/:table",
+  upload.fields([{ name: "arquivo" }, { name: "filename" }]),
+  async (req, res) => {
+    const { table } = req.params;
+
+    try {
+      // Construir novo objeto de dados com suporte a arquivos
+      let newResource = {};
+      // Obtém os campos do formulário
+      if (table === "aplicativos") {
+        newResource = {
+          ...req.body,
+          arquivo: req.files["arquivo"]
+            ? req.files["arquivo"][0].filename
+            : null,
+          filename: req.files["filename"]
+            ? req.files["filename"][0].filename
+            : null,
+        };
+      } else if (table === "publicidadesdb") {
+        newResource = {
+          ...req.body,
+          filename: req.files["filename"]
+            ? req.files["filename"][0].filename
+            : null,
+        };
+      } else {
+        newResource = req.body;
+      }
+      console.log(req.body);
+      const { data, error } = await supabase.from(table).insert([newResource]);
+      console.log(data);
+      if (error)
+        return res
+          .status(400)
+          .json({ error: "Erro ao inserir dados", details: error.message });
+
+      res.status(201).json(data);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Erro ao inserir dados", details: error.message });
+    }
+  }
 );
 
-server.use(router);
+// 🔹 Atualizar dados no Supabase (PATCH)
+server.patch("/:table/:id", async (req, res) => {
+  const { table, id } = req.params;
 
-// 🔹 Middleware para capturar erros globais
-server.use((err, req, res, next) => {
-  console.error("❌ Erro no servidor:", err);
-  if (!res.headersSent) {
-    return res
+  try {
+    const { data, error } = await supabase
+      .from(table)
+      .update(req.body)
+      .eq("id", id);
+
+    if (error)
+      return res
+        .status(400)
+        .json({ error: "Erro ao atualizar dados", details: error.message });
+
+    res.json({ success: true, data });
+  } catch (error) {
+    res
       .status(500)
-      .json({ error: "Erro interno do servidor", details: err.message });
+      .json({ error: "Erro ao atualizar dados", details: error.message });
+  }
+});
+
+// 🔹 Excluir dados no Supabase (DELETE)
+server.delete("/:table/:id", async (req, res) => {
+  const { table, id } = req.params;
+
+  try {
+    // Buscar o item antes de excluir (para remover arquivos, se houver)
+    const { data: item, error: fetchError } = await supabase
+      .from(table)
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (fetchError || !item)
+      return res.status(404).json({ error: "Registro não encontrado" });
+
+    // Remover arquivos associados, se existirem
+    if (item.filename) {
+      const filePath = path.join(__dirname, "public/arquivos", item.filename);
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    }
+    if (item.arquivo) {
+      const filePath = path.join(__dirname, "public/arquivos", item.arquivo);
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    }
+
+    // Excluir o item do banco de dados
+    const { error } = await supabase.from(table).delete().eq("id", id);
+
+    if (error)
+      return res
+        .status(400)
+        .json({ error: "Erro ao excluir dados", details: error.message });
+
+    res.json({ success: true, message: "Registro excluído com sucesso" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Erro ao excluir dados", details: error.message });
   }
 });
 
 // 🔹 Iniciar servidor
 const PORT = process.env.PORT || 3000;
-server
-  .listen(PORT, () => console.log(`🚀 JSON Server rodando na porta ${PORT}`))
-  .on("error", (err) => console.error("❌ Erro ao iniciar o servidor:", err));
-
-module.exports = server;
+server.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
